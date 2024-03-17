@@ -1,0 +1,27 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+ 
+parameters:
+    paths:
+        - app/
+    
+    ignoreErrors:
+        # to ignore these errors :  Call to an undefined method Symfony\Component\HttpFoundation\Request::all().
+        # '#Call to an undefined method [a-zA-Z0-9\\_::]#'
+
+        # to ignore this error :  Access to an undefined property App\Http\Resources\LocationResource::$id.
+        # - '#Access to an undefined property App\\Http\\Resources\\[a-zA-Z0-9::a-zA-Z]#'
+    
+        # to ignore this error :  Cannot access property $id on object|string|null.
+        # - '#Cannot access property \$[a-zA-Z0-9]#'
+        
+    # to ignore these errors :  Method App\Models\User::role() return type with generic class 
+    # Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TChildModel
+    checkGenericClassInNonGenericObjectType: false
+    
+    # to ignore the iterable array value
+    checkMissingIterableValueType: false
+
+    # Level 9 is the highest level
+    level: 9
+    

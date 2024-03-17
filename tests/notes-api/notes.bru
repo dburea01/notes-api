@@ -1,0 +1,15 @@
+meta {
+  name: notes
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{path}}/notes?page=3
+  body: none
+  auth: none
+}
+
+query {
+  page: 3
+}

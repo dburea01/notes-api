@@ -1,0 +1,16 @@
+meta {
+  name: POST notes
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{path}}/notes?note=voluptatem&page=4
+  body: none
+  auth: none
+}
+
+query {
+  note: voluptatem
+  page: 4
+}
