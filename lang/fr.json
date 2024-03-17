@@ -1,4 +1,7 @@
 {
+    "(and :count more error)": "(et :count de plus)",
+    "(and :count more errors)": "(et :count de plus)",
+
     "the note is mandatory" : "La note est obligatoire",
     "the note is too long" : "La note est trop longue (:characters caractères max)",
     "the background color is not an hex value": "La couleur de fond n'est pas une valeur hex"

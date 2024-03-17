@@ -4,13 +4,19 @@ meta {
   seq: 2
 }
 
-get {
-  url: {{path}}/notes?note=voluptatem&page=4
-  body: none
+post {
+  url: {{path}}/notes
+  body: json
   auth: none
 }
 
-query {
-  note: voluptatem
-  page: 4
+headers {
+  Accept-Language: en
+}
+
+body:json {
+  {
+    "note" : "example",
+    "background_color" : "#EEEEEE"
+  }
 }
