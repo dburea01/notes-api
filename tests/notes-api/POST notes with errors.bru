@@ -1,0 +1,22 @@
+meta {
+  name: POST notes with errors
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{path}}/notes
+  body: json
+  auth: none
+}
+
+headers {
+  Accept-Language: en
+}
+
+body:json {
+  {
+    "note" : "example",
+    "background_color" : "#EEEEEE"
+  }
+}

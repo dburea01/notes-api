@@ -1,0 +1,5 @@
+{
+    "the note is mandatory" : "The note is mandatory",
+    "the note is too long" : "The note is too long (:characters characters max)",
+    "the background color is not an hex value": "The background color is not an hex value"
+}

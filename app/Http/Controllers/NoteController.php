@@ -23,6 +23,8 @@ class NoteController extends Controller
 
     public function index(Request $request): AnonymousResourceCollection
     {
+        // abort_if($request->user()->cannot('viewAny', Note::class), 403);
+
         $notes = $this->noteRepository->getNotes($request->all());
 
         return NoteResource::collection($notes);

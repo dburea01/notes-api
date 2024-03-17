@@ -26,4 +26,16 @@ class StoreNoteRequest extends FormRequest
             'background_color' => 'hex_color'
         ];
     }
+
+    /**
+     * @return array<string>
+     */
+    public function messages(): array
+    {
+        return [
+            'note.required' => __('the note is mandatory'),
+            'note.max' => __('the note is too long', ['characters' => 1000]),
+            'background_color.hex_color' => __('the background color is not an hex value'),
+        ];
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\NoteController;
+use App\Http\Middleware\DetectLocale;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -11,6 +12,6 @@ Route::get('/user', function (Request $request) {
 */
 Route::prefix('v1')->group(function () {
 
-    Route::resource('notes', NoteController::class);
+    Route::resource('notes', NoteController::class)->middleware(DetectLocale::class);
 
 });
