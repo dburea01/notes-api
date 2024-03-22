@@ -13,9 +13,16 @@ return new class extends Migration
     {
         Schema::create('notes', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->uuid('organization_id');
+            $table->uuid('user_id');
             $table->text('note');
             $table->string('background_color')->nullable();
             $table->timestamps();
+            $table->string('created_by');
+            $table->string('updated_by')->nullable();
+
+            $table->foreign('organization_id')->references('id')->on('organizations')->cascadeOnDelete();
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
         });
     }
 
