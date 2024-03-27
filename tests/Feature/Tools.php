@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\Feature;
+namespace Tests\Feature;
 
 trait Tools
 {

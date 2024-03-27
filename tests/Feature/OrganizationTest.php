@@ -124,7 +124,7 @@ class OrganizationTest extends TestCase
         $this->assertDatabaseHas('organizations', [
             'name' => $dataToPost['name'],
             'comment' => $dataToPost['comment'],
-            'status' => $dataToPost['status']
+            'status' => $dataToPost['status'],
         ]);
     }
 
@@ -135,7 +135,7 @@ class OrganizationTest extends TestCase
         $dataToPut = [
             'name' => 'modified name',
             'comment' => 'modified comment',
-            'status' => 'ACTIVE'
+            'status' => 'ACTIVE',
         ];
 
         $response = $this->putJson($this->getEndPoint().self::RESOURCE.'/'.$organization->id, $dataToPut);
@@ -157,7 +157,7 @@ class OrganizationTest extends TestCase
 
         $response->assertStatus(204);
         $this->assertDatabaseMissing('organizations', [
-            'id' => $organization->id
+            'id' => $organization->id,
         ]);
     }
 }

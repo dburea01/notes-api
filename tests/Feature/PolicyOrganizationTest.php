@@ -20,6 +20,7 @@ class PolicyOrganizationTest extends TestCase
         $url = $this->getEndPoint().self::RESOURCE;
         $this->getJson($url)->assertUnauthorized();
     }
+
     public function test_only_the_superadmin_can_list_the_organizations(): void
     {
         $organization = Organization::factory()->create();
@@ -84,18 +85,18 @@ class PolicyOrganizationTest extends TestCase
         $superAdmin = $this->createUser('SUPERADMIN', null);
         $admin = $this->createUser('ADMIN', $organization);
         $user = $this->createUser('USER', $organization);
-       
+
         $this->actingAs($admin)->deleteJson($url)->assertForbidden();
         $this->actingAs($user)->deleteJson($url)->assertForbidden();
-        $this->actingAs($superAdmin)->deleteJson($url)->assertNoContent(); 
+        $this->actingAs($superAdmin)->deleteJson($url)->assertNoContent();
     }
 
-    public function createUser(string $roleId, ?Organization $organization) : User
+    public function createUser(string $roleId, ?Organization $organization): User
     {
         return User::factory()->create([
             'role_id' => 'SUPERADMIN',
             'organization_id' => $organization ? $organization->id : null,
-            'role_id' => $roleId
+            'role_id' => $roleId,
         ]);
     }
 }
