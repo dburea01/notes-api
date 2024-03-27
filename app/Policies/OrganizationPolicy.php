@@ -26,7 +26,7 @@ class OrganizationPolicy
         return $user->organization_id == $organization->id && $user->isAdmin();
     }
 
-    public function create(User $user, Organization $organization): bool
+    public function create(User $user): bool
     {
         return false;
     }

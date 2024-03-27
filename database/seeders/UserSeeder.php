@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
         // create 1 super admin
         User::factory()->create([
             'role_id' => 'SUPERADMIN',
-            'status' => 'ACTIVE'
+            'status' => 'ACTIVE',
         ]);
 
         $organizations = Organization::all();

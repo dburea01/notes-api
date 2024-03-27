@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Organization;
 use App\Http\Requests\StoreOrganizationRequest;
-use App\Http\Requests\UpdateOrganizationRequest;
 use App\Http\Resources\OrganizationResource;
+use App\Models\Organization;
 use App\Models\User;
 use App\Repositories\OrganizationRepository;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -19,7 +18,7 @@ class OrganizationController extends Controller
     private OrganizationRepository $organizationRepository;
 
     use AuthorizesRequests;
-    
+
     public function __construct(OrganizationRepository $organizationRepository)
     {
         $this->organizationRepository = $organizationRepository;
@@ -35,7 +34,8 @@ class OrganizationController extends Controller
 
     public function store(StoreOrganizationRequest $request): OrganizationResource|JsonResponse
     {
-        $this->authorize('create', Organization::class);
+        // see the authorization in the storeOrganizationRequest
+        // $this->authorize('create', Organization::class);
 
         try {
             /** @var User $user */
@@ -58,7 +58,8 @@ class OrganizationController extends Controller
 
     public function update(StoreOrganizationRequest $request, Organization $organization): OrganizationResource|JsonResponse
     {
-        $this->authorize('update', $organization);
+        // see the authorization in the storeOrganizationRequest
+        // $this->authorize('update', $organization);
 
         try {
             $organization = $this->organizationRepository->update($organization, $request->all());
