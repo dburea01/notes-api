@@ -65,6 +65,11 @@ class User extends Authenticatable
         return $this->role_id === 'SUPERADMIN';
     }
 
+    public function isAdmin(): bool
+    {
+        return $this->role_id === 'ADMIN';
+    }
+
     protected function firstName(): Attribute
     {
         return Attribute::make(

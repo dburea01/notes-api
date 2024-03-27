@@ -4,6 +4,13 @@
     "the email is not valid" : "The email is not valid",
     "user deconnected" : "User deconnected",
 
+    "the name of the organization is mandatory" : "The name of the organization is mandatory",
+    "the name of the organization is too long" : "The name of the organization is too long (:characters characters max)",
+    "the comment of the organization is too long" : "The comment of the organization is too long (:characters characters max)",
+    "the status of the organization is required" : "The status of the organization is mandatory",
+    "the status is not valid" : "The status of the organization is not valid (must be in :in)",
+
+
     "the note is mandatory" : "The note is mandatory",
     "the note is too long" : "The note is too long (:characters characters max)",
     "the background color is not an hex value": "The background color is not an hex value"

@@ -45,8 +45,8 @@ class NoteRepository
         return $note;
     }
 
-    public function delete(Note $library): void
+    public function delete(Note $note): void
     {
-        $library->delete();
+        $note->delete();
     }
 }

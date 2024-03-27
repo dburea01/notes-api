@@ -22,9 +22,9 @@ class NotePolicy
         return $user->organization_id == $organization->id;
     }
 
-    public function view(User $user, Note $note): bool
+    public function view(User $user, Note $note, Organization $organization): bool
     {
-        return true;
+        return $user->organization_id == $organization->id && $note->organization_id == $organization->id;
     }
 
     public function create(User $user, Organization $organization): bool

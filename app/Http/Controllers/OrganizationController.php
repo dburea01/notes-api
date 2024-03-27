@@ -1,0 +1,84 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Organization;
+use App\Http\Requests\StoreOrganizationRequest;
+use App\Http\Requests\UpdateOrganizationRequest;
+use App\Http\Resources\OrganizationResource;
+use App\Models\User;
+use App\Repositories\OrganizationRepository;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
+
+class OrganizationController extends Controller
+{
+    private OrganizationRepository $organizationRepository;
+
+    use AuthorizesRequests;
+    
+    public function __construct(OrganizationRepository $organizationRepository)
+    {
+        $this->organizationRepository = $organizationRepository;
+    }
+
+    public function index(Request $request): AnonymousResourceCollection
+    {
+        $this->authorize('viewAny', Organization::class);
+        $organizations = $this->organizationRepository->getOrganizations($request->all());
+
+        return OrganizationResource::collection($organizations);
+    }
+
+    public function store(StoreOrganizationRequest $request): OrganizationResource|JsonResponse
+    {
+        $this->authorize('create', Organization::class);
+
+        try {
+            /** @var User $user */
+            $user = $request->user();
+
+            $organization = $this->organizationRepository->insert($request->all());
+
+            return new OrganizationResource($organization);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 422);
+        }
+    }
+
+    public function show(Organization $organization): OrganizationResource
+    {
+        $this->authorize('view', $organization);
+
+        return new OrganizationResource($organization);
+    }
+
+    public function update(StoreOrganizationRequest $request, Organization $organization): OrganizationResource|JsonResponse
+    {
+        $this->authorize('update', $organization);
+
+        try {
+            $organization = $this->organizationRepository->update($organization, $request->all());
+
+            return new OrganizationResource($organization);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 422);
+        }
+    }
+
+    public function destroy(Organization $organization): Response|JsonResponse
+    {
+        $this->authorize('delete', $organization);
+
+        try {
+            $this->organizationRepository->delete($organization);
+
+            return response()->noContent();
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 422);
+        }
+    }
+}
