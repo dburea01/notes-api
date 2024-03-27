@@ -3,47 +3,42 @@
 namespace App\Policies;
 
 use App\Models\Note;
+use App\Models\Organization;
 use App\Models\User;
 
 class NotePolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
+    public function before(User $user): ?bool
     {
-        return true;
+        if ($user->isSuperAdmin()) {
+            return true;
+        }
+
+        return null;
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
+    public function viewAny(User $user, Organization $organization): bool
+    {
+        return $user->organization_id == $organization->id;
+    }
+
     public function view(User $user, Note $note): bool
     {
         return true;
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
-    public function create(User $user): bool
+    public function create(User $user, Organization $organization): bool
     {
-        return true;
+        return $user->organization_id == $organization->id;
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
-    public function update(User $user, Note $note): bool
+    public function update(User $user, Note $note, Organization $organization): bool
     {
-        return true;
+        return $user->organization_id == $organization->id && $note->organization_id == $organization->id;
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
-    public function delete(User $user, Note $note): bool
+    public function delete(User $user, Note $note, Organization $organization): bool
     {
-        return true;
+        return $user->organization_id == $organization->id && $note->organization_id == $organization->id;
     }
 }

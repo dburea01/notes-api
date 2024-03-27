@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreNoteRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,8 @@ class StoreNoteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'note' => 'required|max:1000',
-            'background_color' => 'hex_color',
+            'email' => 'required|email',
+            'password' => 'required',
         ];
     }
 
@@ -33,9 +33,9 @@ class StoreNoteRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'note.required' => __('the note is mandatory'),
-            'note.max' => __('the note is too long', ['characters' => 1000]),
-            'background_color.hex_color' => __('the background color is not an hex value'),
+            'email.required' => __('the email is mandatory to login'),
+            'email.email' => __('the email is not valid'),
+            'password.required' => __('the password is mandatory to login'),
         ];
     }
 }

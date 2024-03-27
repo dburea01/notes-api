@@ -14,11 +14,11 @@ trait HasCreatedUpdatedBy
     protected static function bootHasCreatedUpdatedBy()
     {
         static::creating(function ($model) {
-            $model->created_by = Auth::check() ? Auth::user()->full_name : '?';
+            $model->created_by = Auth::check() && Auth::user() ? Auth::user()->full_name : '?';
         });
 
         static::updating(function ($model) {
-            $model->updated_by = Auth::check() ? Auth::user()->full_name : '?';
+            $model->updated_by = Auth::check() && Auth::user() ? Auth::user()->full_name : '?';
         });
     }
 }

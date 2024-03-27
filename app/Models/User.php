@@ -9,15 +9,19 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * @property string $full_name
+ */
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasUuids, HasCreatedUpdatedBy;
+    use HasApiTokens, HasCreatedUpdatedBy, HasFactory, HasUuids, Notifiable;
 
     public $incrementing = false;
 
     protected $keyType = 'string';
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -30,7 +34,7 @@ class User extends Authenticatable
         'first_name',
         'email',
         'password',
-        'status'
+        'status',
     ];
 
     /**
@@ -56,6 +60,11 @@ class User extends Authenticatable
         ];
     }
 
+    public function isSuperAdmin(): bool
+    {
+        return $this->role_id === 'SUPERADMIN';
+    }
+
     protected function firstName(): Attribute
     {
         return Attribute::make(
@@ -73,7 +82,7 @@ class User extends Authenticatable
     protected function fullName(): Attribute
     {
         return Attribute::make(
-            get: fn ($value, $attributes) => $attributes['last_name'].' '.$attributes['first_name'],
+            get: fn () => $this->last_name.' '.$this->first_name,
         );
     }
 }

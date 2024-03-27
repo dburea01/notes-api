@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Organization extends Model
 {
-    use HasFactory, HasUuids, HasCreatedUpdatedBy;
+    use HasCreatedUpdatedBy, HasFactory, HasUuids;
 
     public $incrementing = false;
 
@@ -17,6 +17,6 @@ class Organization extends Model
     protected $fillable = [
         'name',
         'comment',
-        'status'
+        'status',
     ];
 }

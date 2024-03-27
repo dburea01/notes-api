@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Note extends Model
 {
-    use HasFactory, HasUuids, HasCreatedUpdatedBy;
+    use HasCreatedUpdatedBy, HasFactory, HasUuids;
 
     public $incrementing = false;
 
@@ -18,6 +18,6 @@ class Note extends Model
         'organization_id',
         'user_id',
         'note',
-        'background_color'
+        'background_color',
     ];
 }

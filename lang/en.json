@@ -1,4 +1,9 @@
 {
+    "the email is mandatory to login" : "The email is mandatory to login",
+    "the password is mandatory to login" : "The password is mandatory to login",
+    "the email is not valid" : "The email is not valid",
+    "user deconnected" : "User deconnected",
+
     "the note is mandatory" : "The note is mandatory",
     "the note is too long" : "The note is too long (:characters characters max)",
     "the background color is not an hex value": "The background color is not an hex value"

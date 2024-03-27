@@ -15,23 +15,23 @@ class UserSeeder extends Seeder
     {
         // create 1 super admin
         User::factory()->create([
-            'role_id' => 'SUPERADMIN'
+            'role_id' => 'SUPERADMIN',
         ]);
-        
+
         $organizations = Organization::all();
 
         foreach ($organizations as $organization) {
-            
+
             // 1 admin
             User::factory()->create([
                 'role_id' => 'ADMIN',
-                'organization_id' => $organization->id
+                'organization_id' => $organization->id,
             ]);
 
             // n users
-            User::factory()->count(rand(1,10))->create([
+            User::factory()->count(rand(1, 10))->create([
                 'role_id' => 'USER',
-                'organization_id' => $organization->id
+                'organization_id' => $organization->id,
             ]);
         }
     }

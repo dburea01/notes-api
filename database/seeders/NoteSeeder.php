@@ -20,9 +20,9 @@ class NoteSeeder extends Seeder
             $users = User::where('organization_id', $organization->id)->get();
 
             foreach ($users as $user) {
-                Note::factory()->count(rand(1,10))->create([
+                Note::factory()->count(rand(1, 10))->create([
                     'organization_id' => $organization->id,
-                    'user_id' => $user->id
+                    'user_id' => $user->id,
                 ]);
             }
         }

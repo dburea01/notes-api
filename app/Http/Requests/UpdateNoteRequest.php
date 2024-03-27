@@ -23,7 +23,7 @@ class UpdateNoteRequest extends FormRequest
     {
         return [
             'note' => 'max:1000',
-            'background_color' => 'hex_color'
+            'background_color' => 'hex_color',
         ];
     }
 }
