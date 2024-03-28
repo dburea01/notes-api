@@ -1,0 +1,140 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Notes-API",
+        "description": "Apis to build notes",
+        "contact": {
+            "email": "dburea01@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0",
+        "x-logo": {
+            "url": "https://via.placeholder.com/190x90.png?text=L5-Swagger"
+        }
+    },
+    "paths": {
+        "/organizations": {
+            "get": {
+                "tags": [
+                    "organizations"
+                ],
+                "summary": "Get list of organizationss",
+                "description": "Returns a list of organizations. You must be authenticated and you must have the <strong>SUPERADMIN</strong> role.",
+                "operationId": "getProjectsList",
+                "parameters": [
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Filter by the status of the organization",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "ACTIVE",
+                                "INACTIVE"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Filter by the name of the organization",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Organization"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Organization": {
+                "title": "Organization",
+                "description": "Organization model",
+                "properties": {
+                    "id": {
+                        "title": "id",
+                        "description": "id of the organization",
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "9ba9b105-c56b-4537-86c0-76b0034d1c41"
+                    },
+                    "name": {
+                        "title": "Name",
+                        "description": "Name of the organization",
+                        "type": "string",
+                        "example": "A nice organization"
+                    },
+                    "comment": {
+                        "title": "Comment",
+                        "description": "Comment of the organization",
+                        "type": "string",
+                        "example": "This is a comment ......"
+                    },
+                    "status": {
+                        "title": "Status",
+                        "description": "The status of the organization (ACTIVE / INACTIVE)",
+                        "type": "string",
+                        "example": "ACTIVE"
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Created at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2024-03-28 17:50:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Updated at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2024-03-28 17:54:34"
+                    },
+                    "created_by": {
+                        "title": "Created by",
+                        "description": "Created by",
+                        "type": "string",
+                        "example": "Dominique"
+                    },
+                    "updated_by": {
+                        "title": "Updated by",
+                        "description": "Updated by",
+                        "type": "string",
+                        "example": "Clément"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Project"
+                }
+            }
+        }
+    }
+}
