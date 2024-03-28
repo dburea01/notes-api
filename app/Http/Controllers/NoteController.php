@@ -36,7 +36,8 @@ class NoteController extends Controller
 
     public function store(StoreNoteRequest $request, Organization $organization): NoteResource|JsonResponse
     {
-        $this->authorize('create', [Note::class, $organization]);
+        // see the authorization in the storeNoteRequest
+        // $this->authorize('create', [Note::class, $organization]);
 
         try {
             /** @var User $user */
@@ -59,7 +60,8 @@ class NoteController extends Controller
 
     public function update(UpdateNoteRequest $request, Organization $organization, Note $note): NoteResource|JsonResponse
     {
-        $this->authorize('update', [Note::class, $organization]);
+        // see the authorization in the storeNoteRequest
+        // $this->authorize('update', [Note::class, $organization]);
 
         try {
             $note = $this->noteRepository->update($note, $request->all());
@@ -72,7 +74,7 @@ class NoteController extends Controller
 
     public function destroy(Request $request, Organization $organization, Note $note): Response|JsonResponse
     {
-        $this->authorize('delete', [Note::class, $organization]);
+        $this->authorize('delete', [$note, $organization]);
 
         try {
             $this->noteRepository->delete($note);

@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class PolicyOrganizationTest extends TestCase
+class OrganizationPolicyTest extends TestCase
 {
     use RefreshDatabase;
     use Tools;
