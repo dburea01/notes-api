@@ -7,7 +7,6 @@ use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Log;
 use Tests\TestCase;
 
 class NoteTest extends TestCase
@@ -16,9 +15,13 @@ class NoteTest extends TestCase
     use Tools;
 
     const RESOURCE = 'notes';
+
     public Organization $organization;
+
     public User $userSuperAdmin;
+
     public string $url;
+
     public Collection $notes;
 
     public function setUp(): void
@@ -51,7 +54,7 @@ class NoteTest extends TestCase
         Note::factory()->create([
             'organization_id' => $this->organization->id,
             'user_id' => $this->userSuperAdmin->id,
-            'note' => 'toto'
+            'note' => 'toto',
         ]);
 
         $response = $this->getJson($this->url.'?note=toto');
@@ -87,7 +90,7 @@ class NoteTest extends TestCase
     {
         $noteToPost = [
             'note' => fake()->sentence(1000),
-            'background_color' => fake()->sentence(100)
+            'background_color' => fake()->sentence(100),
         ];
 
         $response = $this->postJson($this->url, $noteToPost);
@@ -112,7 +115,7 @@ class NoteTest extends TestCase
             'note' => $noteToPost['note'],
             'background_color' => $noteToPost['background_color'],
             'organization_id' => $this->organization->id,
-            'user_id' => $this->userSuperAdmin->id
+            'user_id' => $this->userSuperAdmin->id,
         ]);
     }
 
@@ -120,7 +123,7 @@ class NoteTest extends TestCase
     {
         $noteToPut = [
             'note' => 'modified note',
-            'background_color' => fake()->hexColor()
+            'background_color' => fake()->hexColor(),
         ];
 
         $response = $this->putJson($this->url.'/'.$this->notes[0]->id, $noteToPut);

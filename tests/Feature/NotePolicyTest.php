@@ -15,9 +15,17 @@ class NotePolicyTest extends TestCase
     use Tools;
 
     const RESOURCE = 'notes';
+
     public Organization $organization;
-    public User $userSuperAdmin,$userAdmin, $user;
+
+    public User $userSuperAdmin;
+
+    public User $userAdmin;
+
+    public User $user;
+
     public string $url;
+
     public Collection $notes;
 
     public function setUp(): void
@@ -68,12 +76,10 @@ class NotePolicyTest extends TestCase
         $this->actingAs($this->user)->postJson($anotherUrl)->assertForbidden();
     }
 
-    public function test_only_the_superadmin_can_update_a_note_for_any_organization(): void
+    public function test_the_superadmin_can_update_a_note_for_any_organization(): void
     {
         $url = $this->url.'/'.$this->notes[0]->id;
         $this->actingAs($this->userSuperAdmin)->putJson($url)->assertOK();
-        $this->actingAs($this->userAdmin)->putJson($url)->assertOk();
-        $this->actingAs($this->user)->putJson($url)->assertOk();
 
         $anotherOrganization = Organization::factory()->create();
         $anotherUser = User::factory()->create([
@@ -82,13 +88,37 @@ class NotePolicyTest extends TestCase
         ]);
         $anotherNote = Note::factory()->create([
             'organization_id' => $anotherOrganization->id,
-            'user_id' => $anotherUser->id
+            'user_id' => $anotherUser->id,
         ]);
         $anotherUrl = $this->getEndPoint().'organizations/'.$anotherOrganization->id.'/notes/'.$anotherNote->id;
 
         $this->actingAs($this->userSuperAdmin)->putJson($anotherUrl)->assertOk();
-        $this->actingAs($this->userAdmin)->putJson($anotherUrl)->assertForbidden();
-        $this->actingAs($this->user)->putJson($anotherUrl)->assertForbidden();
+    }
+
+    public function test_the_admin_can_update_any_note_for_his_organization(): void
+    {
+        $url = $this->url.'/'.$this->notes[0]->id;
+        $this->actingAs($this->userAdmin)->putJson($url)->assertOK();
+
+        $url = $this->url.'/'.$this->notes[1]->id;
+        $this->actingAs($this->userAdmin)->putJson($url)->assertOK();
+    }
+
+    public function test_the_user_can_update_only_his_notes(): void
+    {
+        $url = $this->url.'/'.$this->notes[0]->id;
+        $this->actingAs($this->user)->putJson($url)->assertForbidden();
+
+        $anotherUser = User::factory()->create([
+            'role_id' => 'USER',
+            'organization_id' => $this->organization->id,
+        ]);
+        $anotherNote = Note::factory()->create([
+            'organization_id' => $this->organization->id,
+            'user_id' => $anotherUser->id,
+        ]);
+        $url = $this->url.'/'.$anotherNote->id;
+        $this->actingAs($this->userAdmin)->putJson($url)->assertOk();
     }
 
     public function test_only_the_superadmin_can_view_a_note_of_any_organization(): void
@@ -105,7 +135,7 @@ class NotePolicyTest extends TestCase
         ]);
         $anotherNote = Note::factory()->create([
             'organization_id' => $anotherOrganization->id,
-            'user_id' => $anotherUser->id
+            'user_id' => $anotherUser->id,
         ]);
         $anotherUrl = $this->getEndPoint().'organizations/'.$anotherOrganization->id.'/notes/'.$anotherNote->id;
 
@@ -114,43 +144,48 @@ class NotePolicyTest extends TestCase
         $this->actingAs($this->user)->getJson($anotherUrl)->assertForbidden();
     }
 
-    public function test_only_the_superadmin_can_delete_a_note_of_any_organization(): void
+    public function test_the_superadmin_can_delete_a_note_for_any_organization(): void
     {
         $url = $this->url.'/'.$this->notes[0]->id;
         $this->actingAs($this->userSuperAdmin)->deleteJson($url)->assertNoContent();
-
-        $url = $this->url.'/'.$this->notes[1]->id;
-        $this->actingAs($this->userAdmin)->deleteJson($url)->assertNoContent();
-
-        $url = $this->url.'/'.$this->notes[2]->id;
-        $this->actingAs($this->user)->deleteJson($url)->assertNoContent();
 
         $anotherOrganization = Organization::factory()->create();
         $anotherUser = User::factory()->create([
             'role_id' => 'USER',
             'organization_id' => $anotherOrganization->id,
         ]);
-        $anotherNotes = Note::factory()->count(3)->create([
+        $anotherNote = Note::factory()->create([
             'organization_id' => $anotherOrganization->id,
-            'user_id' => $anotherUser->id
+            'user_id' => $anotherUser->id,
         ]);
-        
-        $anotherUrl = $this->getEndPoint().'organizations/'.$anotherOrganization->id.'/notes/'.$anotherNotes[0]->id;
+        $anotherUrl = $this->getEndPoint().'organizations/'.$anotherOrganization->id.'/notes/'.$anotherNote->id;
+
         $this->actingAs($this->userSuperAdmin)->deleteJson($anotherUrl)->assertNoContent();
-        
-        $anotherUrl = $this->getEndPoint().'organizations/'.$anotherOrganization->id.'/notes/'.$anotherNotes[1]->id;
-        $this->actingAs($this->userAdmin)->deleteJson($anotherUrl)->assertForbidden();
-        
-        $anotherUrl = $this->getEndPoint().'organizations/'.$anotherOrganization->id.'/notes/'.$anotherNotes[2]->id;
-        $this->actingAs($this->user)->deleteJson($anotherUrl)->assertForbidden();
     }
 
-    public function createUser(string $roleId, ?Organization $organization): User
+    public function test_the_admin_can_delete_any_note_for_his_organization(): void
     {
-        return User::factory()->create([
-            'role_id' => 'SUPERADMIN',
-            'organization_id' => $organization ? $organization->id : null,
-            'role_id' => $roleId,
+        $url = $this->url.'/'.$this->notes[0]->id;
+        $this->actingAs($this->userAdmin)->deleteJson($url)->assertNoContent();
+
+        $url = $this->url.'/'.$this->notes[1]->id;
+        $this->actingAs($this->userAdmin)->deleteJson($url)->assertNoContent();
+    }
+
+    public function test_the_user_can_delete_only_his_notes(): void
+    {
+        $url = $this->url.'/'.$this->notes[0]->id;
+        $this->actingAs($this->user)->deleteJson($url)->assertForbidden();
+
+        $anotherUser = User::factory()->create([
+            'role_id' => 'USER',
+            'organization_id' => $this->organization->id,
         ]);
+        $anotherNote = Note::factory()->create([
+            'organization_id' => $this->organization->id,
+            'user_id' => $anotherUser->id,
+        ]);
+        $url = $this->url.'/'.$anotherNote->id;
+        $this->actingAs($this->userAdmin)->deleteJson($url)->assertNoContent();
     }
 }

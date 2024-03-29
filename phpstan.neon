@@ -4,6 +4,8 @@ includes:
 parameters:
     paths:
         - app/
+    excludePaths:
+        - app/Swagger/**/*
     
     ignoreErrors:
         # to ignore these errors :  Call to an undefined method Symfony\Component\HttpFoundation\Request::all().
@@ -24,4 +26,6 @@ parameters:
 
     # Level 9 is the highest level
     level: 9
+
+    
     

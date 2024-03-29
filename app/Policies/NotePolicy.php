@@ -34,11 +34,18 @@ class NotePolicy
 
     public function update(User $user, Note $note, Organization $organization): bool
     {
-        return $user->organization_id == $organization->id && $note->organization_id == $organization->id;
+        return
+            ($user->organization_id == $organization->id && $note->organization_id == $organization->id)
+        &&
+        (
+            $user->id == $note->user_id
+            ||
+            $user->isAdmin()
+        );
     }
 
     public function delete(User $user, Note $note, Organization $organization): bool
     {
-        return $user->organization_id == $organization->id && $note->organization_id == $organization->id;
+        return $this->update($user, $note, $organization);
     }
 }
