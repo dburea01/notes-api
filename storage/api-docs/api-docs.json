@@ -16,14 +16,14 @@
         }
     },
     "paths": {
-        "/organizations": {
+        "/api/v1/organizations": {
             "get": {
                 "tags": [
-                    "organizations"
+                    "Organizations"
                 ],
                 "summary": "Get list of organizationss",
                 "description": "Returns a list of organizations. You must be authenticated and you must have the <strong>SUPERADMIN</strong> role.",
-                "operationId": "getProjectsList",
+                "operationId": "getOrganizationsList",
                 "parameters": [
                     {
                         "name": "status",
@@ -54,10 +54,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Organization"
-                                    }
+                                    "$ref": "#/components/schemas/OrganizationResource"
                                 }
                             }
                         }
@@ -67,6 +64,181 @@
                     },
                     "403": {
                         "description": "Forbidden"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "Store new organization",
+                "description": "Store a new organization. You must be authenticated and have the <strong>SUPERADMIN</strong> role.",
+                "operationId": "storeOrganization",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreOrganizationRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Organization"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/v1/organizations/{id}": {
+            "get": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "Get organization information",
+                "description": "Returns organization data",
+                "operationId": "getOrganizationById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Organization id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Organization"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "Update existing organization",
+                "description": "Returns updated organization data",
+                "operationId": "updateOrganization",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Organization id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreOrganizationRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Organization"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "Delete existing organization",
+                "description": "Deletes a record and returns no content. Be careful, the deletion deletes also all the childs by cascade (users, notes...)",
+                "operationId": "deleteOrganization",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Organization id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
                     }
                 }
             }
@@ -133,6 +305,59 @@
                 "type": "object",
                 "xml": {
                     "name": "Project"
+                }
+            },
+            "StoreOrganizationRequest": {
+                "title": "StoreOrganizationrequest",
+                "description": "Store Organization request body data",
+                "required": [
+                    "name",
+                    "status"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of the new organization",
+                        "type": "string",
+                        "maxLength": 50,
+                        "example": "A nice organization"
+                    },
+                    "comment": {
+                        "title": "comment",
+                        "description": "Comment of the new organization",
+                        "type": "string",
+                        "maxLength": 100,
+                        "example": "This is new organization's comment"
+                    },
+                    "status": {
+                        "title": "status",
+                        "description": "Status of the new organization (ACTIVE / INACTIVE)",
+                        "type": "string",
+                        "enum": [
+                            "ACTIVE",
+                            "INACTIVE"
+                        ],
+                        "example": "ACTIVE"
+                    }
+                },
+                "type": "object"
+            },
+            "OrganizationResource": {
+                "title": "OrganizationResource",
+                "description": "Organization resource",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Organization"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "OrganizationResource"
                 }
             }
         }
