@@ -36,7 +36,22 @@ class AuthController extends Controller
             $user->tokens()->delete();
             $tokenResult = $user->createToken('authToken')->plainTextToken;
 
-            return response()->json(['token' => $tokenResult, 'user' => $user->only(['id', 'role_id', 'full_name', 'organization_id'])]);
+            return response()->json([
+                /** @var string $tokenResult The bearer token supplied for this user */
+                'token' => $tokenResult, 
+                
+                // 'user' => $user->only(['id', 'role_id', 'full_name', 'organization_id'])]);
+                'user' => [
+                    /** @var string The id (uuid) of the connected user */
+                    'id' => $user->id,
+                    /** @var string The role of the connected user */
+                    'role_id' => $user->role_id,
+                    /** @var string The full name of the connected user */
+                    'full_name' => $user->full_name,
+                    /** @var string The id of the organization of the connected user (uuid) */
+                    'organization_id' => $user->organization_id
+                ]
+                ]);
         } else {
             return response()->json([
                 'message' => 'No user found',
