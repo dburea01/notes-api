@@ -4,8 +4,6 @@ includes:
 parameters:
     paths:
         - app/
-    excludePaths:
-        - app/Swagger/**/*
     
     ignoreErrors:
         # to ignore these errors :  Call to an undefined method Symfony\Component\HttpFoundation\Request::all().

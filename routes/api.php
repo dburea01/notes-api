@@ -12,8 +12,8 @@ Route::prefix('v1')->group(function () {
 
     Route::middleware([DetectLocale::class, 'auth:sanctum'])->group(function () {
         Route::post('logout', [AuthController::class, 'logout']);
-        Route::resource('organizations', OrganizationController::class)->whereUuid('organization');
-        Route::resource('organizations/{organization}/notes', NoteController::class)->whereUuid(['organization', 'note']);
+        Route::apiResource('organizations', OrganizationController::class)->whereUuid('organization');
+        Route::apiResource('organizations/{organization}/notes', NoteController::class)->whereUuid(['organization', 'note']);
     });
 
 });
