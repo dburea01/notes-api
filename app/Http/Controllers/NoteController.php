@@ -26,6 +26,11 @@ class NoteController extends Controller
         $this->noteRepository = $noteRepository;
     }
 
+    /**
+     * Get the list of notes for an organization.
+     * 
+     * The list can be filtered by name
+     */
     public function index(Request $request, Organization $organization): AnonymousResourceCollection
     {
         $this->authorize('viewAny', [Note::class, $organization]);
@@ -34,6 +39,9 @@ class NoteController extends Controller
         return NoteResource::collection($notes);
     }
 
+    /**
+     * Store a new note
+     */
     public function store(StoreNoteRequest $request, Organization $organization): NoteResource|JsonResponse
     {
         // see the authorization in the storeNoteRequest
@@ -51,6 +59,9 @@ class NoteController extends Controller
         }
     }
 
+    /**
+     * Display a note
+     */
     public function show(Request $request, Organization $organization, Note $note): NoteResource
     {
         $this->authorize('view', [$note, $organization]);
@@ -58,6 +69,9 @@ class NoteController extends Controller
         return new NoteResource($note);
     }
 
+    /**
+     * Update a note
+     */
     public function update(UpdateNoteRequest $request, Organization $organization, Note $note): NoteResource|JsonResponse
     {
         // see the authorization in the storeNoteRequest
@@ -72,6 +86,9 @@ class NoteController extends Controller
         }
     }
 
+    /**
+     * Delete a note
+     */
     public function destroy(Request $request, Organization $organization, Note $note): Response|JsonResponse
     {
         $this->authorize('delete', [$note, $organization]);

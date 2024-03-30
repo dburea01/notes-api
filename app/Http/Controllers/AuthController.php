@@ -8,8 +8,16 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * dfgdfgdgf
+ * 
+ * dfgdfgdfgdf dsfg sdfgsdf gsd gsdfg
+ */
 class AuthController extends Controller
 {
+    /**
+     * Login
+     */
     public function login(LoginRequest $request): JsonResponse
     {
         $credentials = [
@@ -36,6 +44,9 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * Logout
+     */
     public function logout(Request $request): JsonResponse
     {
         $user = $request->user();

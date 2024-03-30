@@ -35,7 +35,10 @@ return [
         /*
          * Description rendered on the home page of the API documentation (`/docs/api`).
          */
-        'description' => 'bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla ',
+        'description' => '
+        You will find here all the available endpoints to manage your notes. 
+        Here a draw with the database shema : https://docs.google.com/drawings/d/e/2PACX-1vQOB9aNlfRKsLlqa5MtnAUbq48hzcc8VQ3sR4mxHXlguLgs9dsMW5yFG45IA-EsbbCTgSPHF2Lzr4e9/pub?w=938&h=899
+        ',
     ],
 
     /*
