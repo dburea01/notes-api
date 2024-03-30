@@ -36,7 +36,7 @@ return [
          * Description rendered on the home page of the API documentation (`/docs/api`).
          */
         'description' => '
-        Here you will find all the documentation necessary to understand the "Notes-API" endpoints.
+        Here you will find all the documentation necessary to understand the **Notes-API** endpoints.
 
         Here, a classes diagram:
 
