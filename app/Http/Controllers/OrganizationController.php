@@ -24,6 +24,12 @@ class OrganizationController extends Controller
         $this->organizationRepository = $organizationRepository;
     }
 
+    /**
+     * Get the list of the organizations
+     * 
+     * The list can be filtered by name, status.
+     * You must have the <strong>SUPERADMIN</strong> role to get the list.
+     */
     public function index(Request $request): AnonymousResourceCollection
     {
         $this->authorize('viewAny', Organization::class);
@@ -32,6 +38,9 @@ class OrganizationController extends Controller
         return OrganizationResource::collection($organizations);
     }
 
+    /**
+     * Store a new organization
+     */
     public function store(StoreOrganizationRequest $request): OrganizationResource|JsonResponse
     {
         // see the authorization in the storeOrganizationRequest
@@ -49,6 +58,9 @@ class OrganizationController extends Controller
         }
     }
 
+    /**
+     * Display an organization
+     */
     public function show(Organization $organization): OrganizationResource
     {
         $this->authorize('view', $organization);
@@ -56,6 +68,9 @@ class OrganizationController extends Controller
         return new OrganizationResource($organization);
     }
 
+    /**
+     * Update an organization
+     */
     public function update(StoreOrganizationRequest $request, Organization $organization): OrganizationResource|JsonResponse
     {
         // see the authorization in the storeOrganizationRequest
@@ -70,6 +85,9 @@ class OrganizationController extends Controller
         }
     }
 
+    /**
+     * Delete an organization
+     */
     public function destroy(Organization $organization): Response|JsonResponse
     {
         $this->authorize('delete', $organization);
