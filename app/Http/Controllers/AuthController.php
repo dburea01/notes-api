@@ -3,18 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Resources\UserResource;
+use App\Models\Organization;
 use App\Models\User;
+use App\Repositories\UserRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 /**
  * dfgdfgdgf
- * 
+ *
  * dfgdfgdfgdf dsfg sdfgsdf gsd gsdfg
  */
 class AuthController extends Controller
 {
+    private UserRepository $userRepository;
+
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     /**
      * Login
      */
@@ -26,7 +37,7 @@ class AuthController extends Controller
             'status' => 'ACTIVE',
         ];
 
-        if (! Auth::attempt($credentials)) {
+        if (!Auth::attempt($credentials)) {
             return response()->json(['message' => 'Unauthorized'], 403);
         }
 
@@ -38,8 +49,8 @@ class AuthController extends Controller
 
             return response()->json([
                 /** @var string $tokenResult The bearer token supplied for this user */
-                'token' => $tokenResult, 
-                
+                'token' => $tokenResult,
+
                 // 'user' => $user->only(['id', 'role_id', 'full_name', 'organization_id'])]);
                 'user' => [
                     /** @var string The id (uuid) of the connected user */
@@ -49,9 +60,9 @@ class AuthController extends Controller
                     /** @var string The full name of the connected user */
                     'full_name' => $user->full_name,
                     /** @var string The id of the organization of the connected user (uuid) */
-                    'organization_id' => $user->organization_id
-                ]
-                ]);
+                    'organization_id' => $user->organization_id,
+                ],
+            ]);
         } else {
             return response()->json([
                 'message' => 'No user found',
@@ -71,5 +82,29 @@ class AuthController extends Controller
         }
 
         return response()->json(['message' => __('user deconnected')], 200);
+    }
+
+    /**
+     * Register
+     *
+     * # Register a new user for an organization. 
+     * Everyone can register on an organization ! Suffit *juste* d'avoir l'uuid de l'organization et **c'est parti mon kiki** ! 
+     * 
+     * Bien evidemment c'est pas comme ça qu'il faudrait faire dans la vraie vie. C'est juste pour apprendre hein !
+     * 
+     * Cette parti peut recevoir du mardown, pratique!
+     * 
+     * scramble c'est vraiment génial pour faire de la doc api en un minimum de temps. Quelle productivité ! [https://github.com/dedoc/scramble](https://github.com/dedoc/scramble)
+     */
+    public function register(RegisterRequest $request, Organization $organization): UserResource|JsonResponse
+    {
+
+        try {
+            $user = $this->userRepository->insert($organization, $request->all(), 'USER', 'ACTIVE');
+
+            return new UserResource($user);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 422);
+        }
     }
 }

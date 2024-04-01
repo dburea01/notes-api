@@ -26,7 +26,7 @@ class OrganizationController extends Controller
 
     /**
      * Get the list of the organizations
-     * 
+     *
      * The list can be filtered by name, status.
      * You must have the <strong>SUPERADMIN</strong> role to get the list.
      */

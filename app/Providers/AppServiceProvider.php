@@ -4,8 +4,8 @@ namespace App\Providers;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
         }
 
-        Gate::define('viewApiDocs', function (User $user=null) {
+        Gate::define('viewApiDocs', function (?User $user = null) {
             return true;
         });
     }

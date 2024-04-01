@@ -170,6 +170,40 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"tututut.tititit@rhhrur.fr\",\r\n    \"first_name\" : \"first name\",\r\n    \"last_name\" : \"last name\",\r\n    \"password\" : \"titititi\",\r\n    \"password_confirmation\" : \"titititi\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/organizations/9ba9b105-c56b-4537-86c0-76b0034d1c41/register",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"9ba9b105-c56b-4537-86c0-76b0034d1c41",
+								"register"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

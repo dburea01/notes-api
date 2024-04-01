@@ -28,7 +28,7 @@ class NoteController extends Controller
 
     /**
      * Get the list of notes for an organization.
-     * 
+     *
      * The list can be filtered by name
      */
     public function index(Request $request, Organization $organization): AnonymousResourceCollection

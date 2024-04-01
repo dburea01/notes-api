@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
 
     Route::post('login', [AuthController::class, 'login']);
+    Route::post('organizations/{organization}/register', [AuthController::class, 'register'])->whereUuid('organization');
 
     Route::middleware([DetectLocale::class, 'auth:sanctum'])->group(function () {
         Route::post('logout', [AuthController::class, 'logout']);

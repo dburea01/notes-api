@@ -1,4 +1,13 @@
 {
+    "the email is mandatory to register" : "The email is mandatory to register", 
+    "the email already exists for this organization" : "The email already exists for this organization",
+    "the password is mandatory to register" : "The password is mandatory to register",
+    "the passwords are not identical" : "The passwords are not identical",
+    "the password must have at least 8 characters" : "The password must have at least 8 characters",
+    "the last name is required to register" : "The last name is required to register",
+    "the last name must have 50 characters max" : "The last name must have 50 characters max",
+    "the first name must have 50 characters max" : "The first name must have 50 characters max",
+
     "the email is mandatory to login" : "The email is mandatory to login",
     "the password is mandatory to login" : "The password is mandatory to login",
     "the email is not valid" : "The email is not valid",
@@ -9,7 +18,6 @@
     "the comment of the organization is too long" : "The comment of the organization is too long (:characters characters max)",
     "the status of the organization is required" : "The status of the organization is mandatory",
     "the status is not valid" : "The status of the organization is not valid (must be in :in)",
-
 
     "the note is mandatory" : "The note is mandatory",
     "the note is too long" : "The note is too long (:characters characters max)",

@@ -25,9 +25,12 @@ class OrganizationResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            /** @var string The id of the organization (uuid) */
             'id' => $this->id,
             'name' => $this->name,
+            /** @var string|null A comment of the organization */
             'comment' => $this->comment,
+            /** @var string The status of the organization 'ACTIVE' or 'INACTIVE' */
             'status' => $this->status,
             'created_at' => $this->created_at,
             'created_by' => $this->created_by,
