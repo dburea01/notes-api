@@ -1,7 +1,7 @@
 
-## About NOTES-Api
+# About NOTES-Api
 
-NOTES-APi allows you to create “text” notes for organizations. Honestly, it's no use. It just allowed me to learn how to properly build APIs with the Laravel framework. And to understand all the necessary steps until the production.
+NOTES-APi allows you to create “text” notes for organizations. **Honestly, it's no use**. It just allowed me to learn how to properly build APIs with the [Laravel framework](https://laravel.com/). And to understand all the necessary steps until the production.
 
 ## Features
 
@@ -25,12 +25,11 @@ The roles are:
 ### api resources
 https://laravel.com/docs/11.x/eloquent-resources
 
-### translations
-The translated messages are in the lang folder.
+### Translations
 
-You can choose the desired language by specifying **Accept-Language=xx** in the header of your request. The translated langage are **en** and **fr**.
+You can choose the desired language for the responses by specifying **Accept-Language=xx** in the header of your request. The translated langage are **en** and **fr**.
 
-Without language specified, the default language will be used (see you config.app file).
+Without language specified, the default language will be used (see you config.app file). See the middleware Middleware/DetectLocale.php
 
 The translated message are in the /lang folder (one json file per language).
 
@@ -76,10 +75,13 @@ Pint is also installed by default. Allowing “clean” code that is pleasant to
 ## Access to the api documentation
 The https://github.com/dedoc/scramble is installed. This tool allows you to generate high quality API docs without writing (almost) annotations. If you respect the laravel standards, then scramble will find all your routes/validation rules/responses/errors/etc...
 
-Once the project is installed, go to http://localhost:8000/docs/api
+Once the project is installed, go to http://localhost:8000/docs/api to see this documentation
 
 ## Demo ##
 https://notesapi-16ff4c1d6469.herokuapp.com/docs/api#/
+
+### I'm learning ### 
+I spent a bit of time learning though, so it's definitely not perfect. So if you have any suggestions for me, please let me know.
 
 ## License
 You can use it, clone, copy/paste, etc...
