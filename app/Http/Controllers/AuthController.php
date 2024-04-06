@@ -37,7 +37,7 @@ class AuthController extends Controller
             'status' => 'ACTIVE',
         ];
 
-        if (!Auth::attempt($credentials)) {
+        if (! Auth::attempt($credentials)) {
             return response()->json(['message' => 'Unauthorized'], 403);
         }
 
@@ -87,13 +87,13 @@ class AuthController extends Controller
     /**
      * Register
      *
-     * # Register a new user for an organization. 
-     * Everyone can register on an organization ! Suffit *juste* d'avoir l'uuid de l'organization et **c'est parti mon kiki** ! 
-     * 
+     * # Register a new user for an organization.
+     * Everyone can register on an organization ! Suffit *juste* d'avoir l'uuid de l'organization et **c'est parti mon kiki** !
+     *
      * Bien evidemment c'est pas comme ça qu'il faudrait faire dans la vraie vie. C'est juste pour apprendre hein !
-     * 
+     *
      * Cette parti peut recevoir du mardown, pratique!
-     * 
+     *
      * scramble c'est vraiment génial pour faire de la doc api en un minimum de temps. Quelle productivité ! [https://github.com/dedoc/scramble](https://github.com/dedoc/scramble)
      */
     public function register(RegisterRequest $request, Organization $organization): UserResource|JsonResponse

@@ -1,8 +1,28 @@
 {
-    "(and :count more error)": "(et :count de plus)",
-    "(and :count more errors)": "(et :count de plus)",
+    "the email is mandatory to register" : "L'email est obligatoire pour s'enregistrer", 
+    "the email already exists for this organization" : "Cet email existe déjà pour cette organization",
+    "the password is mandatory to register" : "Le mot de passe est obligatoire pour s'enregistrer",
+    "the passwords are not identical" : "Les mots de passe ne sont pas identiques",
+    "the password must have at least 8 characters" : "Le mot de passe doit avoir au moins 8 caractères",
+    "the last name is required to register" : "Le nom est obligatoire pour s'enregistrer",
+    "the last name must have 50 characters max" : "La longueur du nom ne doit pas dépasser 50 caractères",
+    "the first name must have 50 characters max" : "La longueur du prénom ne doit pas dépasser 50 caractères",
+    "You have reached the maximum of users per organization" : "Vous avez atteint le maximum d'utilisateurs pour cette organization (:quantityUsersPerOrganization)",
+
+    "the email is mandatory to login" : "L'email est obligatoire pour se connecter",
+    "the password is mandatory to login" : "Le mot de passe est obligatoire pour se connecter",
+    "the email is not valid" : "L'email n'est pas valide",
+    "user deconnected" : "Utilisateur déconnecté",
+
+    "the name of the organization is mandatory" : "Le nom de l'organization est obligatoire",
+    "the name of the organization is too long" : "Le nom de l'organization est trop long (:characters characters max)",
+    "the comment of the organization is too long" : "Le commentaire de l'organization est trop long (:characters characters max)",
+    "the status of the organization is required" : "Le status de l'organization est obligatoire",
+    "the status is not valid" : "Le status n'est pas valide (valeur acceptée :in)",
+    "You have reached the maximum of organizations on this platform" : "Vous avez atteint le nombre maximum d'organizations (:quantityOrganizations)",
 
     "the note is mandatory" : "La note est obligatoire",
     "the note is too long" : "La note est trop longue (:characters caractères max)",
-    "the background color is not an hex value": "La couleur de fond n'est pas une valeur hex"
+    "the background color is not an hex value": "La couleur de fond n'est pas valide (doit etre une valeur hex)",
+    "you have reached the maximum of notes per organizationlang/en.json" : "Vous avez atteint le maximum de notes par organization (:quantityNotesPerOrganization)"
 }

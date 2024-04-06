@@ -7,6 +7,7 @@
     "the last name is required to register" : "The last name is required to register",
     "the last name must have 50 characters max" : "The last name must have 50 characters max",
     "the first name must have 50 characters max" : "The first name must have 50 characters max",
+    "You have reached the maximum of users per organization" : "You have reached the maximum of users per organization (:quantityUsersPerOrganization)",
 
     "the email is mandatory to login" : "The email is mandatory to login",
     "the password is mandatory to login" : "The password is mandatory to login",
@@ -18,8 +19,10 @@
     "the comment of the organization is too long" : "The comment of the organization is too long (:characters characters max)",
     "the status of the organization is required" : "The status of the organization is mandatory",
     "the status is not valid" : "The status of the organization is not valid (must be in :in)",
+    "You have reached the maximum of organizations on this platform" : "You have reached the maximum of organizations on this platform (:quantityOrganizations)",
 
     "the note is mandatory" : "The note is mandatory",
     "the note is too long" : "The note is too long (:characters characters max)",
-    "the background color is not an hex value": "The background color is not an hex value"
+    "the background color is not an hex value": "The background color is not an hex value",
+    "you have reached the maximum of notes per organizationlang/en.json" : "You have reached the maximum of notes per organization (:quantityNotesPerOrganization)"
 }

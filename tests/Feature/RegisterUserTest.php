@@ -126,4 +126,16 @@ class RegisterUserTest extends TestCase
 
         ]);
     }
+
+    public function test_impossible_to_register_more_users_than_the_max_authorized()
+    {
+        $maxUsers = config('params.max_users_per_organization');
+        User::factory()->count($maxUsers)->create([
+            'organization_id' => $this->organization->id,
+        ]);
+
+        $response = $this->postJson($this->url, $this->userToRegister);
+
+        $response->assertStatus(422)->assertInvalid('max_users_per_organization');
+    }
 }

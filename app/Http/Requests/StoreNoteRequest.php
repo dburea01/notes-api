@@ -3,7 +3,9 @@
 namespace App\Http\Requests;
 
 use App\Models\Note;
+use App\Models\Organization;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Validator;
 
 class StoreNoteRequest extends FormRequest
 {
@@ -33,6 +35,28 @@ class StoreNoteRequest extends FormRequest
         return [
             'note' => 'required|max:1000',
             'background_color' => 'hex_color',
+        ];
+    }
+
+    public function after(): array
+    {
+
+        return [
+            function (Validator $validator) {
+
+                /** @var Organization $organization */
+                $organization = $this->route('organization');
+
+                $maxNotesPerOrganization = config('params.max_notes_per_organization');
+                $quantityNotes = Note::where('organization_id', $organization->id)->count();
+
+                if ($quantityNotes >= $maxNotesPerOrganization) {
+                    $validator->errors()->add(
+                        'max_notes_per_organization',
+                        __('you have reached the maximum of notes per organization', ['quantityNotesPerOrganization' => $quantityNotes]),
+                    );
+                }
+            },
         ];
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\Organization;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Validator;
 
 class StoreOrganizationRequest extends FormRequest
 {
@@ -34,6 +35,25 @@ class StoreOrganizationRequest extends FormRequest
             'name' => 'required|max:100',
             'comment' => 'max:100',
             'status' => 'required|in:ACTIVE,INACTIVE',
+        ];
+    }
+
+    public function after(): array
+    {
+
+        return [
+            function (Validator $validator) {
+
+                $maxOrganizations = config('params.max_organizations');
+                $quantityOrganizations = Organization::count();
+
+                if ($quantityOrganizations >= $maxOrganizations) {
+                    $validator->errors()->add(
+                        'max_organizations',
+                        __('You have reached the maximum of organizations on this platform', ['quantityOrganizations' => $quantityOrganizations]),
+                    );
+                }
+            },
         ];
     }
 

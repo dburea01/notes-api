@@ -3,10 +3,12 @@
 namespace App\Http\Requests;
 
 use App\Models\Organization;
+use App\Models\User;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\Validator;
 
 class RegisterRequest extends FormRequest
 {
@@ -44,6 +46,28 @@ class RegisterRequest extends FormRequest
             'password' => ['required', 'confirmed', Password::min(8)],
             'last_name' => 'required|max:50',
             'first_name' => 'max:50',
+        ];
+    }
+
+    public function after(): array
+    {
+
+        return [
+            function (Validator $validator) {
+
+                /** @var Organization $organization */
+                $organization = $this->route('organization');
+
+                $maxUsersPerOrganization = config('params.max_users_per_organization');
+                $quantityUsers = User::where('organization_id', $organization->id)->count();
+
+                if ($quantityUsers >= $maxUsersPerOrganization) {
+                    $validator->errors()->add(
+                        'max_users_per_organization',
+                        __('You have reached the maximum of users for this organization', ['quantityUsersPerOrganization' => $quantityUsers]),
+                    );
+                }
+            },
         ];
     }
 

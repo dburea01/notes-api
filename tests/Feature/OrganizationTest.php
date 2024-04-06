@@ -128,6 +128,21 @@ class OrganizationTest extends TestCase
         ]);
     }
 
+    public function test_impossible_to_create_more_organizations_than_the_max_authorized()
+    {
+        $maxOrganizations = config('params.max_organizations');
+
+        Organization::factory()->count($maxOrganizations)->create();
+        $dataToPost = [
+            'name' => fake()->word(),
+            'comment' => fake()->word(),
+            'status' => 'ACTIVE',
+        ];
+        $response = $this->postJson($this->getEndPoint().self::RESOURCE, $dataToPost);
+
+        $response->assertStatus(422)->assertInvalid('max_organizations');
+    }
+
     public function test_an_organization_can_be_updated(): void
     {
         $organization = Organization::factory()->create();

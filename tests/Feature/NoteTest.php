@@ -119,6 +119,27 @@ class NoteTest extends TestCase
         ]);
     }
 
+    public function test_impossible_to_create_more_notes_than_the_max_authorized()
+    {
+        $maxNotes = config('params.max_notes_per_organization');
+
+        Note::where('organization_id', $this->organization->id)->delete();
+
+        Note::factory()->count($maxNotes)->create([
+            'organization_id' => $this->organization->id,
+            'user_id' => $this->userSuperAdmin->id,
+        ]);
+
+        $noteToPost = [
+            'note' => fake()->word(),
+            'background_color' => fake()->hexColor(),
+        ];
+
+        $response = $this->postJson($this->url, $noteToPost);
+
+        $response->assertStatus(422)->assertInvalid('max_notes_per_organization');
+    }
+
     public function test_a_note_can_be_updated(): void
     {
         $noteToPut = [
