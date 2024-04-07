@@ -73,7 +73,7 @@ Pint is also installed by default. Allowing “clean” code that is pleasant to
 
 
 ## Access to the api documentation
-The https://github.com/dedoc/scramble is installed. This tool allows you to generate high quality API docs without writing (almost) annotations. If you respect the laravel standards, then scramble will find all your routes/validation rules/responses/errors/etc...
+[scramble](https://github.com/dedoc/scramble) is installed. This tool allows you to generate high quality API docs without writing (almost) annotations. If you respect the laravel standards, then scramble will find all your routes/validation rules/responses/errors/etc...
 
 Once the project is installed, go to http://localhost:8000/docs/api to see this documentation
 
