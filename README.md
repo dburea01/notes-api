@@ -1,5 +1,5 @@
 
-# About NOTES-Api
+# Welcome !
 
 NOTES-APi allows you to create “text” notes for organizations. **Honestly, it's no use**. It just allowed me to learn how to properly build APIs with the [Laravel framework](https://laravel.com/). And to understand all the necessary steps until the production.
 
