@@ -81,7 +81,7 @@ Once the project is installed, go to http://localhost:8000/docs/api to see this 
 https://notesapi-16ff4c1d6469.herokuapp.com/docs/api#/
 
 ### I'm learning ### 
-I spent a bit of time learning though, so it's definitely not perfect. So if you have any suggestions for me, please let me know.
+I spent a bit of time learning though, so it's definitely not perfect. So if you have any suggestions for me, please let me know : https://github.com/dburea01/notes-api/discussions
 
 ## License
 You can use it, clone, copy/paste, etc...
