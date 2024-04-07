@@ -33,7 +33,7 @@ Without language specified, the default language will be used (see you config.ap
 
 The translated message are in the /lang folder (one json file per language).
 
-### authentication
+### Authentication
 The tool uses sanctum.
 https://laravel.com/docs/11.x/sanctum
 
@@ -75,7 +75,7 @@ Pint is also installed by default. Allowing “clean” code that is pleasant to
 ## Access to the api documentation
 [scramble](https://github.com/dedoc/scramble) is installed. This tool allows you to generate high quality API docs without writing (almost) annotations. If you respect the laravel standards, then scramble will find all your routes/validation rules/responses/errors/etc...
 
-Once the project is installed, go to http://localhost:8000/docs/api to see this documentation
+Once the project is installed, go to http://localhost:8000/docs/api to see this documentation.
 
 ## Demo ##
 https://notesapi-16ff4c1d6469.herokuapp.com/docs/api#/
